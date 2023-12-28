@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { AppProps } from "next/app";
 import "nextra-theme-docs/style.css";
 import "../styles/globals.css";
-import { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 
 // https://nextjs.org/docs/basic-features/layouts#with-typescript
 

@@ -1,10 +1,12 @@
-# React Native Wear
+# [React Native Wear][1]
 #### This is a fork of [circles-00/react-native-wear-communication-module](https://github.com/circles-00/react-native-wear-communication-module) compatible with expo-manged projects
 
 React Native Wear is a expo native module for expo-manged and bare react native applications that allows communicating with WearOS devices through native data client API. More information <a href="https://developers.google.com/android/reference/com/google/android/gms/wearable/DataClient">here</a>. <br/>
 <br />
 This module is helpful if you're developing an application for android and Wear OS
 
+### [💡 We're building new docs][1]
+> We're building new docs for this library that are more detailed and more up-to-date
 ## Before you start
 ### Make sure that both of your applications:
 - Share the same package name everywhere in the project (android manifest, `build.gradle`, the project files etc.)
@@ -76,3 +78,5 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 ## License
 
 MIT
+
+[1]: https://reactnativewear.vercel.app/
