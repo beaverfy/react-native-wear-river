@@ -29,6 +29,6 @@
     "target": "esnext",
   },
   "exclude": [
-    "./docs"
+    "docs"
   ]
 }

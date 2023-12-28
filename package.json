@@ -1,6 +1,6 @@
 {
   "name": "react-native-wear",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Description",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -34,7 +34,10 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "wear",
+    "react-native-wear",
+    "wear-os"
   ],
   "repository": "https://github.com/darknet-00/react-native-wear-communication-module",
   "author": {
@@ -50,9 +53,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/darknet-00/react-native-wear-communication-module/issues"
+    "url": "https://github.com/beaverfy/react-native-wear/issues"
   },
-  "homepage": "https://github.com/darknet-00/react-native-wear-communication-module#readme",
+  "homepage": "https://reactnativewear.vercel.app/",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
