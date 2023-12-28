@@ -68,3 +68,5 @@ yarn.lock
 
 # yarn cache
 .yarn/cache
+
+*env
