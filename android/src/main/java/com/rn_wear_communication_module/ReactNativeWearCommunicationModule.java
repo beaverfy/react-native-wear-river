@@ -27,13 +27,12 @@ import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
-
 @ReactModule(name = ReactNativeWearCommunicationModule.NAME)
-public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModule implements DataClient.OnDataChangedListener {
+public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModule
+    implements DataClient.OnDataChangedListener {
   private final String TAG = "RNWearCommModule";
   public final static String NAME = "ReactNativeWearCommunicationModule";
   public final static String RN_EVENT_NAME = "dataQuery";
-
 
   public ReactNativeWearCommunicationModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -41,11 +40,11 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
   }
 
   @ReactMethod
-  public void sendDataToClient (ReadableMap data) {
+  public void sendDataToClient(ReadableMap data, Boolean debugLogs) {
     PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/data-response");
 
     ReadableMapKeySetIterator iterator = data.keySetIterator();
-    while(iterator.hasNextKey()) {
+    while (iterator.hasNextKey()) {
       String key = iterator.nextKey();
       ReadableType readableType = data.getType(key);
       switch (readableType) {
@@ -66,9 +65,31 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
 
     putDataMapReq.setUrgent();
 
-    Task<DataItem> putDataTask = Wearable.getDataClient(getReactApplicationContext()).putDataItem(putDataMapReq.asPutDataRequest());
-    putDataTask.addOnSuccessListener(onSuccessListener);
-    putDataTask.addOnFailureListener(onFailureListener);
+    Task<DataItem> putDataTask = Wearable.getDataClient(getReactApplicationContext())
+        .putDataItem(putDataMapReq.asPutDataRequest());
+    putDataTask.addOnSuccessListener(o -> {
+      if (debugLogs)
+        sendLogToReactNative("Successfully sent data to wear client");
+      onSuccessListener();
+    });
+    putDataTask.addOnFailureListener(o -> {
+      if (debugLogs)
+        sendLogToReactNative("Failed to send data to wear client");
+      onFailureListener();
+    });
+  }
+
+  // Method to send a log to React Native/debug console
+  private void sendLogToReactNative(String message) {
+    Log.d("ReactNativeWear", message);
+
+    // Get ReactApplicationContext
+    ReactApplicationContext reactContext = getReactApplicationContext();
+
+    // Send log to React Native
+    reactContext
+        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+        .emit("logEvent", message);
   }
 
   @NonNull
@@ -102,16 +123,12 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
     return ReactNativeWearCommunicationModule.RN_EVENT_NAME;
   }
 
-
   private void sendEventToRN(ReactContext reactContext, String eventName, DataMap params) {
-
     try {
-
       WritableMap map = Arguments.fromBundle(params.toBundle());
-    reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-              .emit(eventName, map);
-    }
-    catch (Exception e) {
+      reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+          .emit(eventName, map);
+    } catch (Exception e) {
       Log.d(TAG, "Error converting to bundle");
     }
   }
