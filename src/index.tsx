@@ -19,14 +19,16 @@ const ReactNativeWearCommunicationModule =
 
 // Listen for the log event
 DeviceEventEmitter.addListener('logEvent', (message) => {
-  console.log("[ReactNativeWear] ", message);
+  console.log('[ReactNativeWear] ', message);
 });
 
-export function sendDataToClient(data: Object, options?: {
-  debugLogs?: boolean;
-}): void {
-  if (options?.debugLogs) console.log("[ReactNativeWear] Sending data to wear client...")
-  return ReactNativeWearCommunicationModule.sendDataToClient(data, options?.debugLogs ?? false);
+export function sendDataToClient(data: Object, debugLogs = false): void {
+  if (debugLogs)
+    console.log('[ReactNativeWear] Sending data to wear client...');
+  return ReactNativeWearCommunicationModule.sendDataToClient(
+    data,
+    debugLogs ?? false
+  );
 }
 
 export function getRNEventName(): string {
