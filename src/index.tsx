@@ -25,6 +25,7 @@ DeviceEventEmitter.addListener('logEvent', (message) => {
 export function sendDataToClient(data: Object, debugLogs = false): void {
   if (debugLogs)
     console.log('[ReactNativeWear] Sending data to wear client...');
+
   return ReactNativeWearCommunicationModule.sendDataToClient(
     data,
     debugLogs ?? false
