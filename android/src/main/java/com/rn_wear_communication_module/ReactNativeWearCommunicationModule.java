@@ -33,6 +33,7 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
   private final String TAG = "RNWearCommModule";
   public final static String NAME = "ReactNativeWearCommunicationModule";
   public final static String RN_EVENT_NAME = "dataQuery";
+  public final static String LOG_NAME = "ReactNativeWearDebugLogs";
 
   public ReactNativeWearCommunicationModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -41,6 +42,10 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
 
   @ReactMethod
   public void sendDataToClient(ReadableMap data, Boolean debugLogs) {
+    if (debugLogs)
+      sendLogToReactNative("Received data: " + data, getReactApplicationContext());
+    if (debugLogs)
+      sendLogToReactNative("Debug logs enabled: " + debugLogs, getReactApplicationContext());
     PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/data-response");
 
     ReadableMapKeySetIterator iterator = data.keySetIterator();
@@ -69,27 +74,26 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
         .putDataItem(putDataMapReq.asPutDataRequest());
     putDataTask.addOnSuccessListener(o -> {
       if (debugLogs)
-        sendLogToReactNative("Successfully sent data to wear client");
+        sendLogToReactNative("Successfully sent data to wear client", getReactApplicationContext());
+
       onSuccessListener();
     });
     putDataTask.addOnFailureListener(o -> {
       if (debugLogs)
-        sendLogToReactNative("Failed to send data to wear client");
+        sendLogToReactNative("Failed to send data to wear client", getReactApplicationContext());
+
       onFailureListener();
     });
   }
 
   // Method to send a log to React Native/debug console
-  private void sendLogToReactNative(String message) {
+  private void sendLogToReactNative(String message, ReactContext reactContext) {
     Log.d("ReactNativeWear", message);
-
-    // Get ReactApplicationContext
-    ReactApplicationContext reactContext = getReactApplicationContext();
 
     // Send log to React Native
     reactContext
         .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-        .emit("logEvent", message);
+        .emit(ReactNativeWearCommunicationModule.LOG_NAME, message);
   }
 
   @NonNull
@@ -98,8 +102,13 @@ public class ReactNativeWearCommunicationModule extends ReactContextBaseJavaModu
     return ReactNativeWearCommunicationModule.NAME;
   }
 
-  private final OnSuccessListener onSuccessListener = o -> Log.d(TAG, "SUCCESSFULLY SENT DATA");
+  @NonNull
+  @Override
+  public String getLogName() {
+    return ReactNativeWearCommunicationModule.LOG_NAME;
+  }
 
+  private final OnSuccessListener onSuccessListener = o -> Log.d(TAG, "SUCCESSFULLY SENT DATA");
   private final OnFailureListener onFailureListener = e -> Log.d(TAG, "FAILED TO SEND DATA");
 
   @Override
