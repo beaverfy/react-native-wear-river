@@ -15,7 +15,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function Nextra({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   return getLayout(<Component {...pageProps} />);
 }
