@@ -1,0 +1,21 @@
+# Receiving Data
+You may want to receive data from your Wear OS client, to receive data, set up a listener or use the `useWearData()` hook:
+
+## Listen for events
+This is basically what [`useWearData()`](#wear-data-hook) does, but without the hook:
+
+```tsx
+import { getRNEventName } from "react-native-wear";
+DeviceEventEmitter.addListener(getRNEventName(), async (data) => {
+  //...
+});
+```
+## Wear Data Hook
+Import `useWearData`:
+```ts
+import { useWearData } from "react-native-wear";
+```
+Use the hook to receive data:
+```tsx
+const { data } = useWearData((data) => data.message);
+```

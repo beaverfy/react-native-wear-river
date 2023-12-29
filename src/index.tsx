@@ -1,5 +1,6 @@
 import { DeviceEventEmitter, NativeModules, Platform } from 'react-native';
 import { green } from './color';
+import { useState } from 'react';
 
 const LINKING_ERROR =
   `The package 'react-native-respondr_react_native_wear_module' doesn't seem to be linked. Make sure: \n\n` +
@@ -46,6 +47,18 @@ export function sendDataToClient(
     data,
     debugLogs ?? false
   );
+}
+
+export function useWearData<T>(dataResolver: (data: any) => T | Promise<T>) {
+  const [data, setData] = useState<T>();
+  DeviceEventEmitter.addListener(getRNEventName(), async (data) => {
+    const resolved = await dataResolver(data);
+    return setData(resolved);
+  });
+
+  return {
+    data
+  }
 }
 
 export function getRNEventName(): string {

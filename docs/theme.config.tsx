@@ -1,17 +1,17 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-export default {
-  projectLink: 'https://github.com/beaverfy/react-native-wear', // GitHub link in the navbar
+import { DocsThemeConfig } from "nextra-theme-docs/.";
+
+const config: DocsThemeConfig = {
   docsRepositoryBase:
     'https://github.com/beaverfy/react-native-wear', // base URL for the docs repository
-  nextLinks: true,
-  prevLinks: true,
-  search: true,
-  customSearch: null, // customizable, you can use algolia for example
   darkMode: true,
-  footer: true,
-  footerText: `By Beaverfy & Community`,
-  footerEditLink: `Edit this page on GitHub`,
+  footer: {
+    text: `By Beaverfy & Community`
+  },
+  editLink: {
+    text: `Edit this page on GitHub`
+  },
   logo: (
     <>
       <img
@@ -33,4 +33,9 @@ export default {
       <meta name="og:title" content="ActionSheet for React Native" />
     </>
   ),
+  toc: {
+    backToTop: true
+  }
 };
+
+export default config;
