@@ -1,6 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
-
-import { DocsThemeConfig } from 'nextra-theme-docs';
+import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
   docsRepositoryBase: 'https://github.com/beaverfy/react-native-wear', // base URL for the docs repository
