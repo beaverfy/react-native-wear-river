@@ -1,6 +1,6 @@
 {
   "name": "react-native-wear",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Description",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
