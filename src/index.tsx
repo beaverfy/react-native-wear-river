@@ -19,6 +19,7 @@ const ReactNativeWearCommunicationModule =
       }
     );
 
+let debugLogsWarning = false;
 export function sendDataToClient(
   data: Object,
   {
@@ -27,12 +28,14 @@ export function sendDataToClient(
     debugLogs: boolean;
   }
 ): void {
-  if (debugLogs)
+  if (debugLogs && debugLogsWarning == false) {
     console.log(
       `[ReactNativeWear] ${green(
         '✔'
       )} Debug logs enabled, learn more: https://reactnativewear.vercel.app/guides/debugging`
     );
+    debugLogsWarning = true;
+  }
 
   return ReactNativeWearCommunicationModule.sendDataToClient(
     data
