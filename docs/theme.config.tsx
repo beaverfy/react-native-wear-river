@@ -1,16 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 
-import { DocsThemeConfig } from "nextra-theme-docs/.";
+import { DocsThemeConfig } from 'nextra-theme-docs';
 
 const config: DocsThemeConfig = {
-  docsRepositoryBase:
-    'https://github.com/beaverfy/react-native-wear', // base URL for the docs repository
+  docsRepositoryBase: 'https://github.com/beaverfy/react-native-wear', // base URL for the docs repository
   darkMode: true,
   footer: {
-    text: `By Beaverfy & Community`
+    text: 'By Beaverfy & Community',
   },
   editLink: {
-    text: `Edit this page on GitHub`
+    text: 'Edit this page on GitHub',
   },
   logo: (
     <>
@@ -34,8 +33,8 @@ const config: DocsThemeConfig = {
     </>
   ),
   toc: {
-    backToTop: true
-  }
+    backToTop: true,
+  },
 };
 
 export default config;
