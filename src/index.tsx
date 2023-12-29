@@ -19,15 +19,6 @@ const ReactNativeWearCommunicationModule =
       }
     );
 
-function getRNLogEventName(): string {
-  return ReactNativeWearCommunicationModule.getLogEventName();
-}
-
-// Listen for the log event
-DeviceEventEmitter.addListener(getRNLogEventName(), (message) => {
-  console.log('[ReactNativeWear] ', message);
-});
-
 export function sendDataToClient(
   data: Object,
   {
@@ -40,12 +31,11 @@ export function sendDataToClient(
     console.log(
       `[ReactNativeWear] ${green(
         '✔'
-      )} Debug logs enabled, learn more: https://reactnativewear.vercel.app/`
+      )} Debug logs enabled, learn more: https://reactnativewear.vercel.app/guides/debugging`
     );
 
   return ReactNativeWearCommunicationModule.sendDataToClient(
-    data,
-    debugLogs ?? false
+    data
   );
 }
 
