@@ -21,7 +21,7 @@ const config: DocsThemeConfig = {
     text: 'By Beaverfy & Community',
   },
   editLink: {
-    text: 'Edit this page on GitHub',
+    text: 'Edit this page on GitHub →',
   },
   logo: (
     <>
