@@ -1,0 +1,1 @@
+# Create `wear` folder and adds a `WearModule` to the src folder
