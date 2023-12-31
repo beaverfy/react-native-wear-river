@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["ReactNativeWearModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.wear.ReactNativeWearModule"]
+  }
+}

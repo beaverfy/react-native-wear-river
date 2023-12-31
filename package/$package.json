@@ -1,7 +1,7 @@
 {
-  "name": "react-native-wear",
-  "version": "0.1.0",
-  "description": "Transfer data between Android and Wear OS",
+  "name": "<%- project.slug %>",
+  "version": "<%- project.version %>",
+  "description": "<%- project.description %>",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -9,7 +9,6 @@
     "clean": "expo-module clean",
     "lint": "expo-module lint",
     "test": "expo-module test",
-    "release": "dotenv release-it",
     "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
@@ -19,33 +18,21 @@
   "keywords": [
     "react-native",
     "expo",
-    "react-native-wear",
-    "ReactNativeWear"
+    "<%- project.slug %>",
+    "<%- project.name %>"
   ],
-  "repository": "https://github.com/beaverfy/react-native-wear",
+  "repository": "<%- repo %>",
   "bugs": {
-    "url": "https://github.com/beaverfy/react-native-wear/issues"
+    "url": "<%- repo %>/issues"
   },
-  "author": "Turtlepaw <beaverfy@outlook.com> (https://github.com/beaverfy)",
-  "license": "MIT",
-  "homepage": "https://github.com/beaverfy/react-native-wear#readme",
+  "author": "<%- author %>",
+  "license": "<%- license %>",
+  "homepage": "<%- repo %>#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/react": "^18.0.25",
     "expo-module-scripts": "^3.0.11",
     "expo-modules-core": "^1.5.11"
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    }
   },
   "peerDependencies": {
     "expo": "*",
