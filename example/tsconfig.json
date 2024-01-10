@@ -3,8 +3,12 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "react-native-wear": ["../src/index"],
-      "react-native-wear/*": ["../src/*"]
+      "react-native-wear": [
+        "../src/index"
+      ],
+      "react-native-wear/*": [
+        "../src/*"
+      ]
     }
   }
 }

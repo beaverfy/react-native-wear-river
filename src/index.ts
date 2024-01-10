@@ -3,8 +3,7 @@ import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-cor
 // Import the native module. On web, it will be resolved to ReactNativeWear.web.ts
 // and on native platforms to ReactNativeWear.ts
 import ReactNativeWearModule from './ReactNativeWearModule';
-import ReactNativeWearView from './ReactNativeWearView';
-import { DataReceivedEventPayload, ReactNativeWearViewProps, SendPayload } from './ReactNativeWear.types';
+import { DataReceivedEventPayload, SendPayload } from './ReactNativeWear.types';
 
 // Get the native constant value.
 export const DataReceivedEvent = ReactNativeWearModule.DataReceivedEvent;
@@ -19,4 +18,4 @@ export function addDataListener(listener: (event: DataReceivedEventPayload) => v
   return emitter.addListener<DataReceivedEventPayload>('onChange', listener);
 }
 
-export { ReactNativeWearView, ReactNativeWearViewProps, DataReceivedEventPayload };
+export { DataReceivedEventPayload };
