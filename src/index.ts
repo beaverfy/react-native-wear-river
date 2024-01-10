@@ -4,23 +4,19 @@ import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-cor
 // and on native platforms to ReactNativeWear.ts
 import ReactNativeWearModule from './ReactNativeWearModule';
 import ReactNativeWearView from './ReactNativeWearView';
-import { ChangeEventPayload, ReactNativeWearViewProps } from './ReactNativeWear.types';
+import { DataReceivedEventPayload, ReactNativeWearViewProps, SendPayload } from './ReactNativeWear.types';
 
 // Get the native constant value.
-export const PI = ReactNativeWearModule.PI;
+export const DataReceivedEvent = ReactNativeWearModule.DataReceivedEvent;
 
-export function hello(): string {
-  return ReactNativeWearModule.hello();
-}
-
-export async function setValueAsync(value: string) {
-  return await ReactNativeWearModule.setValueAsync(value);
+export async function send(value: SendPayload) {
+  return await ReactNativeWearModule.sendDataAsync(value);
 }
 
 const emitter = new EventEmitter(ReactNativeWearModule ?? NativeModulesProxy.ReactNativeWear);
 
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
+export function addDataListener(listener: (event: DataReceivedEventPayload) => void): Subscription {
+  return emitter.addListener<DataReceivedEventPayload>('onChange', listener);
 }
 
-export { ReactNativeWearView, ReactNativeWearViewProps, ChangeEventPayload };
+export { ReactNativeWearView, ReactNativeWearViewProps, DataReceivedEventPayload };

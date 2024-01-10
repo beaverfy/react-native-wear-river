@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import * as ReactNativeWear from 'react-native-wear';
+import * as ReactNativeWear from '..';
 
 export default function App() {
   return (

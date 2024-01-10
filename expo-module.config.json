@@ -1,9 +1,10 @@
 {
-  "platforms": ["ios", "android", "web"],
-  "ios": {
-    "modules": ["ReactNativeWearModule"]
-  },
+  "platforms": [
+    "android"
+  ],
   "android": {
-    "modules": ["expo.modules.wear.ReactNativeWearModule"]
+    "modules": [
+      "expo.modules.wear.ReactNativeWearModule"
+    ]
   }
 }

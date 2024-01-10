@@ -19,7 +19,9 @@ import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.Wearable;
 
 class ReactNativeWearModule : Module() {
-  private static final RECIEVE_EVENT_NAME = "dataRecieved";
+  private val RECIEVE_EVENT_NAME = "dataRecieved";
+  private val TAG = "ReactNativeWearModule";
+  private val dataClient by lazy { Wearable.getDataClient(this) }
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -31,79 +33,45 @@ class ReactNativeWearModule : Module() {
 
     // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
     Constants(
-      "PI" to Math.PI
+      "DataReceivedEvent" to RECIEVE_EVENT_NAME
     )
 
     // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
-    }
+    Events(RECIEVE_EVENT_NAME)
 
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
+    AsyncFunction("sendDataAsync") { value: Record, path: String ->
+      Log.d(TAG, "Attempting to send data...")
+      val putDataMapReq = PutDataMapRequest.create(path);
+      ReadableMapKeySetIterator iterator = data.keySetIterator();
+      while (iterator.hasNextKey()) {
+        val key = iterator.nextKey();
+        ReadableType readableType = data.getType(key);
+        switch (readableType) {
+          case String:
+            String stringValue = data.getString(key);
+            putDataMapReq.getDataMap().putString(key, stringValue);
+            break;
+          case Number:
+            double numberValue = data.getDouble(key);
+            putDataMapReq.getDataMap().putDouble(key, numberValue);
+            break;
+          case Boolean:
+            boolean booleanValue = data.getBoolean(key);
+            putDataMapReq.getDataMap().putBoolean(key, booleanValue);
+            break;
+        }
+      }
+
+      Task<Integer> putDataTask = dataClient.putDataItem(putDataMapReq.asPutDataRequest());
+      putDataTask.addOnSuccessListener({ ->
+          Log.d(TAG, "Data sent successfully");
+      });
+
+      putDataTask.addOnFailureListener({ ->
+        Log.d(TAG, "Failed to send data", e);
+      });
     }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(ReactNativeWearView::class) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: ReactNativeWearView, prop: String ->
-        println(prop)
-      }
-    }
-  }
-
-  @ReactMethod
-  public void sendData(WritableMap data) {
-    PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/data");
-    ReadableMapKeySetIterator iterator = data.keySetIterator();
-    while (iterator.hasNextKey()) {
-      String key = iterator.nextKey();
-      ReadableType readableType = data.getType(key);
-      switch (readableType) {
-        case String:
-          String stringValue = data.getString(key);
-          putDataMapReq.getDataMap().putString(key, stringValue);
-          break;
-        case Number:
-          double numberValue = data.getDouble(key);
-          putDataMapReq.getDataMap().putDouble(key, numberValue);
-          break;
-        case Boolean:
-          boolean booleanValue = data.getBoolean(key);
-          putDataMapReq.getDataMap().putBoolean(key, booleanValue);
-          break;
-      }
-    }
-
-    Task<Integer> putDataTask = Wearable.getDataClient(getReactApplicationContext()).putDataItem(putDataMapReq.asPutDataRequest());
-    putDataTask.addOnSuccessListener(new OnSuccessListener<Integer>() {
-      @Override
-      public void onSuccess(Integer integer) {
-        Log.d(TAG, "Data sent successfully");
-      }
-    });
-    putDataTask.addOnFailureListener(new OnFailureListener() {
-      @Override
-      public void onFailure(@NonNull Exception e) {
-        Log.e(TAG, "Failed to send data", e);
-      }
-    });
-  }
-
-  public void sendEvent(String data) {
-    WritableMap params = Arguments.createMap();
-    params.putString("data", data);
-    getReactApplicationContext()
-        .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-        .emit(EVENT_NAME, params);
   }
 }
