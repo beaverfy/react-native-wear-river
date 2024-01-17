@@ -7,7 +7,9 @@ import {
 
 export default function App() {
   const sendSampleData = () => {
-    send("Hi there!");
+    send({
+      message: "Hi there!"
+    });
   }
 
   return (

@@ -1,5 +1,4 @@
 import { NativeModules, Platform } from 'react-native';
-import { RNWearError } from './errors';
 import type { Payload } from './types';
 
 const LINKING_ERROR =

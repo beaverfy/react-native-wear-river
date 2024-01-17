@@ -41,6 +41,7 @@
     "eslint": "^8.4.1",
     "husky": "^8.0.3",
     "jest": "^28.1.1",
+    "prettier": "^3.2.3",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-builder-bob": "^0.20.0",
@@ -73,9 +74,9 @@
     "@types/react": "17.0.21"
   },
   "peerDependencies": {
+    "@expo/config-plugins": ">= 6.0.2",
     "react": "*",
-    "react-native": "*",
-    "@expo/config-plugins": ">= 6.0.2"
+    "react-native": "*"
   },
   "engines": {
     "node": ">= 16.0.0"
