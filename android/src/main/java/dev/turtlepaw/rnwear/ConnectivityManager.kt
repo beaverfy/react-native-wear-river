@@ -13,6 +13,10 @@ import kotlin.coroutines.cancellation.CancellationException
 class ConnectivityManager(private val applicationContext: ReactApplicationContext) {
   private val dataClient by lazy { Wearable.getDataClient(applicationContext) }
 
+  fun getSendPath(promise: Promise) {
+    promise.resolve(SEND_PATH);
+  }
+
   fun sendData(payload: ReadableMap, promise: Promise) {
         try {
           val request = PutDataMapRequest.create(SEND_PATH).apply {
@@ -41,7 +45,6 @@ class ConnectivityManager(private val applicationContext: ReactApplicationContex
                 }
               }
             }
-            dataMap // @TODO: place payload into data map
           }
             .asPutDataRequest()
             .setUrgent()

@@ -12,6 +12,11 @@ class RNWearModule internal constructor(context: ReactApplicationContext) :
   }
 
   @ReactMethod
+  override fun getSendPath(promise: Promise) {
+    return manager.getSendPath(promise)
+  }
+
+  @ReactMethod
   override fun send(payload: ReadableMap, promise: Promise) {
     return manager.sendData(payload, promise)
   }

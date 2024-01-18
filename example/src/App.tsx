@@ -1,20 +1,17 @@
 import * as React from 'react';
-
 import { Button, StyleSheet, View } from 'react-native';
-import {
-  send
-} from 'react-native-wear';
+import { send } from 'react-native-wear';
 
 export default function App() {
   const sendSampleData = () => {
     send({
-      message: "Hi there!"
+      message: 'Hi there!',
     });
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <Button title="Send Sample Data" onPress={sendSampleData} />
+      <Button title="Send Sample Data to Wear OS" onPress={sendSampleData} />
     </View>
   );
 }

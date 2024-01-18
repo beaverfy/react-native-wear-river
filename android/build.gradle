@@ -37,10 +37,14 @@ android {
   def agpVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION
   // Check AGP version for backward compatibility reasons
   if (agpVersion.tokenize('.')[0].toInteger() >= 7) {
-      namespace = "dev.matinzd.NativeWear"
+      namespace = "dev.turtlepaw.rnwear"
   }
 
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+  buildFeatures {
+    buildConfig true
+  }
 
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
