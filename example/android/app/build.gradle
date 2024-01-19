@@ -74,9 +74,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.nativewearexample"
+    namespace "com.rnwearexample"
     defaultConfig {
-        applicationId "com.nativewearexample"
+        applicationId "com.rnwearexample"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

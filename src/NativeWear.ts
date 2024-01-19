@@ -6,4 +6,4 @@ export interface RNWearSpec extends TurboModule {
   send(data: Payload<string>): Promise<any>;
 }
 
-export default TurboModuleRegistry.getEnforcing<RNWearSpec>('NativeWear');
+export default TurboModuleRegistry.getEnforcing<RNWearSpec>('RNWear');
