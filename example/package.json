@@ -1,0 +1,28 @@
+{
+  "name": "RNWearExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "echo \"iOS is not avaiable\"",
+    "start": "react-native start",
+    "rnupgrade": "react-native upgrade",
+    "pods": "bundle install && pod-install"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.73.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@babel/runtime": "^7.20.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "@react-native/babel-preset": "^0.73.18",
+    "@react-native/metro-config": "^0.73.2",
+    "@react-native/eslint-config": "^0.73.1",
+    "@react-native/typescript-config": "^0.73.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

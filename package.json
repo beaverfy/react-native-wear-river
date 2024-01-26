@@ -2,39 +2,94 @@
   "name": "react-native-wear",
   "version": "0.1.0",
   "description": "Transfer data between Android and Wear OS",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "scripts": {
-    "build": "expo-module build",
-    "clean": "expo-module clean",
-    "lint": "expo-module lint",
-    "test": "expo-module test",
-    "release": "dotenv release-it",
-    "prepare": "expo-module prepare",
-    "prepublishOnly": "expo-module prepublishOnly",
-    "expo-module": "expo-module",
-    "open:ios": "open -a \"Xcode\" example/ios",
-    "open:android": "open -a \"Android Studio\" example/android"
-  },
-  "keywords": [
-    "react-native",
-    "expo",
-    "react-native-wear",
-    "ReactNativeWear"
-  ],
+  "private": false,
+  "main": "lib/commonjs/index",
+  "module": "lib/module/index",
+  "types": "lib/typescript/index.d.ts",
+  "react-native": "src/index",
+  "source": "src/index",
   "repository": "https://github.com/beaverfy/react-native-wear",
+  "author": "Turtlepaw <turtlepaw.developer@outlook.com> (https://github.com/turtlepaw)",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/beaverfy/react-native-wear/issues"
   },
-  "author": "Turtlepaw <beaverfy@outlook.com> (https://github.com/beaverfy)",
-  "license": "MIT",
   "homepage": "https://github.com/beaverfy/react-native-wear#readme",
-  "dependencies": {},
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ./src",
+    "prepack": "bob build",
+    "release": "release-it",
+    "example": "yarn --cwd example",
+    "bootstrap": "yarn example && yarn install",
+    "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build"
+  },
   "devDependencies": {
-    "@types/react": "^18.0.25",
-    "expo-module-scripts": "^3.0.11",
-    "expo-modules-core": "^1.5.11",
-    "react-native": "^0.73.2"
+    "@commitlint/config-conventional": "^17.4.2",
+    "@evilmartians/lefthook": "^1.2.8",
+    "@react-native-community/eslint-config": "^3.0.2",
+    "@release-it/conventional-changelog": "^5.0.0",
+    "@types/jest": "^28.1.2",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "0.70.0",
+    "commitlint": "^17.4.2",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.3",
+    "jest": "^28.1.1",
+    "prettier": "^2.8.4",
+    "react": "18.1.0",
+    "react-native": "0.70.6",
+    "react-native-builder-bob": "^0.20.0",
+    "release-it": "^15.6.0",
+    "typescript": "^4.9.5"
+  },
+  "keywords": [
+    "react-native",
+    "wear-os",
+    "watch",
+    "wearable"
+  ],
+  "files": [
+    "src",
+    "lib",
+    "android",
+    "!lib/typescript/example",
+    "!android/build",
+    "!android/gradle",
+    "!android/gradlew",
+    "!android/gradlew.bat",
+    "!android/local.properties",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/.*",
+    "app.plugin.js"
+  ],
+  "resolutions": {
+    "@types/react": "17.0.21"
+  },
+  "peerDependencies": {
+    "@expo/config-plugins": ">= 6.0.2",
+    "react": "*",
+    "react-native": "*"
+  },
+  "engines": {
+    "node": ">= 16.0.0"
+  },
+  "packageManager": "yarn@1.22.19",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
   },
   "release-it": {
     "git": {
@@ -46,11 +101,65 @@
     },
     "github": {
       "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular"
+      }
     }
   },
-  "peerDependencies": {
-    "expo": "*",
-    "react": "*",
-    "react-native": "*"
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "singleQuote": true,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false
+        }
+      ]
+    }
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "codegenConfig": {
+    "name": "RNWearSpec",
+    "type": "modules",
+    "jsSrcsDir": "src"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
