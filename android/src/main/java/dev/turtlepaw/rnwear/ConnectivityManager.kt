@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReadableType
 import com.google.android.gms.wearable.PutDataMapRequest
 import com.google.android.gms.wearable.Wearable
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.reflect.typeOf
 
 
 class ConnectivityManager(private val applicationContext: ReactApplicationContext) {
@@ -18,12 +19,12 @@ class ConnectivityManager(private val applicationContext: ReactApplicationContex
           val request = PutDataMapRequest.create(SEND_PATH).apply {
             val iterator = payload.keySetIterator()
             while(iterator.hasNextKey()){
-              val key = iterator.nextKey()
+              val key: String = iterator.nextKey()
               val readableType: ReadableType = payload.getType(key)
               when (readableType) {
                 ReadableType.String -> {
-                  val stringValue = payload.getString(key)
-                  dataMap.putString(key, stringValue)
+                   val stringValue = payload.getString(key)
+                   dataMap.putString(key, stringValue)
                 }
 
                 ReadableType.Number -> {
